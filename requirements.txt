@@ -14,4 +14,5 @@ requests-toolbelt==0.9.1
 six==1.15.0
 spyne==2.13.16
 urllib3==1.26.3
+uWSGI==2.0.17
 zeep==4.0.0
