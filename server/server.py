@@ -23,22 +23,21 @@ class HelloWorldService(ServiceBase):
         for i in range(times):
             yield 'Hello, %s' % name
 
-if __name__ == '__main__':
-    import logging
+import logging
 
-    logging.basicConfig(level=logging.DEBUG)
-    logging.getLogger('spyne.protocol.xml').setLevel(logging.DEBUG)
+logging.basicConfig(level=logging.DEBUG)
+logging.getLogger('spyne.protocol.xml').setLevel(logging.DEBUG)
 
-    app = Application([HelloWorldService, GoodbyeWorldService], 
-        'spyne.examples.hello.http',
-        in_protocol=Soap12(validator='lxml'),
-        out_protocol=Soap12())
+app = Application([HelloWorldService, GoodbyeWorldService], 
+    'spyne.examples.hello.http',
+    in_protocol=Soap12(validator='lxml'),
+    out_protocol=Soap12())
 
-    wsgi_app = WsgiApplication(app)
-    server = make_server('127.0.0.1', 7789, wsgi_app)
-    print("Listening to 127.0.0.1:7789")
-    print("wsdl is at: http://localhost:7789/?wsdl")
-    server.serve_forever()
+wsgi_app = WsgiApplication(app)
+server = make_server('0.0.0.0', 7789, wsgi_app)
+print("Listening to 127.0.0.1:7789")
+print("wsdl is at: http://localhost:7789/?wsdl")
+server.serve_forever()
 
     
 
